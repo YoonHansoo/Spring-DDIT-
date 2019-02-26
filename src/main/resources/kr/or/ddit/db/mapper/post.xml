@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="post">
+  
+ <select id="getPostCnt" resultType="int" parameterType="int">
+select count(*)
+      from post
+      where BOARDNO = #{boardNo}
+</select> 
+ 
+ <!--계층형 쿼리  -->
+   <select id="selectPostPagingList" resultType="postVo" parameterType="pageVo">
+      select *
+         from
+            (select a.*, rownum rn
+               from
+                  (select POSTNO, POSTTITLE ,POST_GN,BOARDNO,USERID,trim(POST_DEL_FLAG) as POST_DEL_FLAG,POST_REG_DT, level
+          FROM post
+           where BOARDNO = #{boardNo}
+         START WITH PARENT_POSTNO IS NULL
+       CONNECT BY PARENT_POSTNO = prior POSTNO
+          order SIBLINGS By POST_GN desc, POSTNO) a) a
+           where rn between  ((#{pageNo}-1)*10)+1 and (#{pageNo})*10
+   </select>
+  
+  <insert id="insertPost" parameterType="PostVo">
+  INSERT INTO POST 
+    VALUES (
+            SEQ_POST.NEXTVAL,
+            #{postContent},
+            SYSDATE,
+            NVL(#{parent_Postno,jdbcType=VARCHAR}, SEQ_POST.CURRVAL),
+            'T',
+            #{userId},
+            #{boardNo},
+            #{parent_Postno,jdbcType=VARCHAR},
+            #{postTitle}
+    )
+  
+  </insert>
+  
+	
+	<insert id="insertUploadFile" parameterType="UploadfileVo">
+		INSERT INTO UPLOADFILE
+		VALUES(
+				SEQ_UPLOADFILE.NEXTVAL,
+				SEQ_POST.CURRVAL,
+				#{uploadFileName},
+				#{uploadRealFilePath}
+		)
+	</insert>	
+	
+	<select id="selectPostDetail" parameterType="java.lang.String" resultType="postVo">
+  select /*+INDEX(POST PK_POST)*/ *
+		  from post 
+		 where postNo = #{postNo};
+	</select>
+	
+	<select id="selectUploadFile" parameterType="java.lang.String" resultType="UploadfileVo">
+	select *
+	  from UPLOADFILE
+	 where POSTNO = #{POSTNO}
+	</select>
+  
+  <select id="selectUploadFileOne" parameterType="java.lang.String" resultType="UploadfileVo">
+  	select * 
+  	  from UPLOADFILE
+  	 where UPLOADFILENO = #{UPLOADFILENO}
+  </select>
+  
+  <update id="updPost" parameterType="postVo">
+  update post 
+     set POSTTITLE = #{postTitle},
+       POSTCONTENT = #{postContent}
+   where  POSTNO = #{postNo}
+  
+  </update>
+  
+  <delete id="deleteUploadFileAll" parameterType="String">
+  delete from UPLOADFILE
+ where POSTNO = #{postNo}
+  </delete>
+ 
+ 
+ <insert id="insertUploadFileforUpd" parameterType="UploadfileVo" >
+ 	INSERT INTO UPLOADFILE
+		VALUES(
+				SEQ_UPLOADFILE.NEXTVAL,
+				#{postNo},
+				#{uploadFileName},
+				#{uploadRealFilePath}
+		)
+ </insert>
+ 
+ <select id="selectBoardNm" parameterType="String" resultType="String">
+ 	select boardNm
+ 	 from board
+ 	 where  BOARDNO = #{boardNo}
+ </select>
+ 
+ <update id="delPost" parameterType="String">
+ 	update post
+ 	   set POST_DEL_FLAG = 'F'
+ 	   where POSTNO = #{postNo}
+ 	
+ </update>
+</mapper>
