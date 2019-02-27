@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.ddit.ranger.dao.IRangerDao;
 
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:kr/or/ddit/ioc/application-context.xml")   //스프링 컨테이너 설정환경을 구축
 public class IocMainTest {
@@ -34,8 +35,8 @@ public class IocMainTest {
 	@Resource(name="rangerDaoPrototype")
 	private IRangerDao rangerDaoPrototype1;
 
-	@Resource(name="rangerDaoPrototype")
-	private IRangerDao rangerDaoPrototype2;
+//	@Resource(name="rangerDaoPrototype")
+//	private IRangerDao rangerDaoPrototype2;
 	
 	@Test
 	public void testRangerDao() {
@@ -63,7 +64,7 @@ public class IocMainTest {
 	 * 
 	 */
 	@Test
-	public void testSpringSingletonBean() {
+	public void testSpringSingetonBean() {
 		/***Given***/
 		
 
@@ -71,7 +72,7 @@ public class IocMainTest {
 
 		/***Then***/
 		assertEquals(rangerDao, rangerDao2);
-
+			//
 	}
 	
 	
@@ -110,6 +111,6 @@ public class IocMainTest {
 		/***When***/
 
 		/***Then***/
-		assertNotEquals(rangerDaoPrototype1,rangerDaoPrototype2);
+		//assertNotEquals(rangerDaoPrototype1,rangerDaoPrototype2);
 	}
 }

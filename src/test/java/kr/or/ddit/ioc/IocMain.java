@@ -35,7 +35,7 @@ public class IocMain {
 		logger.debug("===================================================");
 		
 		//rangerService DL
-		IRangerService rangerService = context.getBean("rangerService",IRangerService.class); // 2번 째 인자로 형변환할 클래스를 넘겨주면 
+		IRangerDao rangerService = context.getBean("rangerService",IRangerDao.class); // 2번 째 인자로 형변환할 클래스를 넘겨주면 
 																							  // 형변환 할 필요가 없다.
 		
 		List<String> rangers2 = rangerService.getRangers();
@@ -47,7 +47,7 @@ public class IocMain {
 		 logger.debug("=============================================================");
 	      logger.debug("======rangerService 생성자 주입(rangerDao)==========");
 	      
-	      IRangerService rangerServiceConstructor =  context.getBean("rangerServiceConstructor", IRangerService.class); //requiredType : 형변환
+	      IRangerDao rangerServiceConstructor =  context.getBean("rangerServiceConstructor", IRangerDao.class); //requiredType : 형변환
 	      List<String> rangers3 = rangerServiceConstructor.getRangers();
 	      for(String ranger : rangers3) {
 	         logger.debug("ranger : {} ",ranger);
