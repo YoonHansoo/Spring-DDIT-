@@ -12,24 +12,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:kr/or/ddit/config/spring/application-context.xml")
-@WebAppConfiguration //스프링 컨테이너를 만들 떄 WEbApplicationContext로 생성 
-					 //미적용시 applicationContext이다.
+
 public class LogicTestConfig {
 
-	@Autowired
-	protected WebApplicationContext context;
-	protected MockMvc mockMvc;
-
-	
-	//@BeforeClass (static --> 사용빈도가 떨어짐) 
-	// @Before - @Test - @After
-	// @Before - @Test - @After
-	// ......
-	// @AfterClass(static --> 사용빈도가 떨어짐)
-	
-	
-	@Before
-	public void setup(){
-		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-	}
 }

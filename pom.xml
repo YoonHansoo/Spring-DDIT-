@@ -9,6 +9,10 @@
 
 	<properties>
 		<java.version>1.7</java.version>
+		<spring.version>4.3.22.RELEASE</spring.version>
+		<mybatis.version>3.5.0</mybatis.version>
+		<junit.version>4.12</junit.version>
+		
 	</properties>
 
 	<build>
@@ -29,7 +33,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -75,42 +79,42 @@
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-context</artifactId>
-    <version>4.3.22.RELEASE</version>
+    <version>${spring.version}</version>
 </dependency>
 
 <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-core</artifactId>
-    <version>4.3.22.RELEASE</version>
+    <version>${spring.version}</version>
 </dependency>
 
 <!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-beans</artifactId>
-    <version>4.3.22.RELEASE</version>
+    <version>${spring.version}</version>
 </dependency>
 
 <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-web</artifactId>
-    <version>4.3.22.RELEASE</version>
+    <version>${spring.version}</version>
 </dependency>
 
 <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-webmvc</artifactId>
-    <version>4.3.22.RELEASE</version>
+    <version>${spring.version}</version>
 </dependency>
 
 <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-test</artifactId>
-    <version>4.3.22.RELEASE</version>
+    <version>${spring.version}</version>
     <scope>test</scope>
 </dependency>
 
@@ -118,22 +122,40 @@
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-aop</artifactId>
-    <version>4.3.22.RELEASE</version>
+    <version>${spring.version}</version>
 </dependency>
 
 <!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-orm</artifactId>
-    <version>4.3.22.RELEASE</version>
+    <version>${spring.version}</version>
 </dependency>
 
 <!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
 <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-jdbc</artifactId>
-    <version>4.3.22.RELEASE</version>
+    <version>${spring.version}</version>
 </dependency>
+
+<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.4</version>
+</dependency>
+
+
+
 
 
 
