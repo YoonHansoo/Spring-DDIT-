@@ -32,32 +32,15 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
+
+import kr.or.ddit.test.WebTestConfig;
 	
 
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:kr/or/ddit/config/spring/servlet-context.xml",
-					   "classpath:kr/or/ddit/config/spring/application-context.xml"})
-@WebAppConfiguration //스프링 컨테이너를 만들 떄 WEbApplicationContext로 생성 
-					 //미적용시 applicationContext이다.
-public class RangerControllerTest {
-		
-		@Autowired
-		private WebApplicationContext context;
-		private MockMvc mockMvc;
 
-		
-		//@BeforeClass (static --> 사용빈도가 떨어짐) 
-		// @Before - @Test - @After
-		// @Before - @Test - @After
-		// ......
-		// @AfterClass(static --> 사용빈도가 떨어짐)
+public class RangerControllerTest extends WebTestConfig {
 		
 		
-		@Before
-		public void setup(){
-			mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-		}
 		
 	/**
 	 * Method : testGetRangers
@@ -89,6 +72,13 @@ public class RangerControllerTest {
 	}
 	
 	
+	/**
+	 * Method : testGetRanger
+	 * 작성자 : Hansoo
+	 * 변경이력 :
+	 * @throws Exception
+	 * Method 설명 : ListIndex에 해당하는 레인저 이름 조회
+	 */
 	@Test
 	public void testGetRanger() throws Exception{
 		/***Given***/
