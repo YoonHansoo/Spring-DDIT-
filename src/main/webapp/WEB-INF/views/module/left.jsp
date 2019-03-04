@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
      <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="<%=request.getContextPath()%>/userAllList">사용자 리스트</a></li> 
-            <li><a href="<%=request.getContextPath()%>/userPagingList">사용자 리스트 페이징 </a></li>
+            <li><a href="<%=request.getContextPath()%>/user/userAllList">사용자 리스트</a></li> 
+            <li><a href="<%=request.getContextPath()%>/user/userPagingList">사용자 리스트 페이징 </a></li>
           </ul>
           
           <ul class="nav nav-sidebar">

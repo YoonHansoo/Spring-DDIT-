@@ -2,6 +2,7 @@ package kr.or.ddit.ranger.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -17,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.ddit.ranger.model.RangerVo;
 import kr.or.ddit.ranger.service.IRangerService;
-
 @SessionAttributes({"boardGb","boardGb2"}) //@ModelAttribute의 값을 세션에 저장해서 매번 실행하지 않게 한다.
 @RequestMapping("/ranger")
 @Controller
@@ -92,7 +94,6 @@ public class RangerController {
 	@RequestMapping(path="/getRangersMav")
 	public ModelAndView getRangersMav(){
 		List<String> rangers = rangerService.getRangers();
-		
 	
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("rangers", rangers);
@@ -100,6 +101,9 @@ public class RangerController {
 		mav.setViewName("ranger/rangerList");
 		return mav;
 	}
+	
+	
+	
 	
 	
 	/*

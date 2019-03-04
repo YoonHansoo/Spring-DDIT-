@@ -30,8 +30,6 @@ public class LoginControllerTest extends WebTestConfig {
 	@Test
 	public void testLoginView() throws Exception  {
 		/***Given***/
-		
-		
 
 		/***When***/
 		MvcResult mvcResult = mockMvc.perform(get("/login")).andReturn();
@@ -92,6 +90,7 @@ public class LoginControllerTest extends WebTestConfig {
 				//view name
 				ModelAndView mav = mvcResult.getModelAndView();
 				String viewName = mav.getViewName();
+				
 				
 				/***Then***/
 				assertEquals("login/login", viewName);

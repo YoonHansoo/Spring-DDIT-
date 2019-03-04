@@ -12,7 +12,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:kr/or/ddit/config/spring/application-context.xml")
-
 public class LogicTestConfig {
 
 }
