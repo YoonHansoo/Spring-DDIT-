@@ -182,7 +182,7 @@
 
 		});
 	</script>
-	<form id="frm" action="${cp}/user"
+	<form id="frm" action="${cp}/user/user"
 		method="get">
 		<input type="hidden" name="userId" id="userId" />
 	</form>

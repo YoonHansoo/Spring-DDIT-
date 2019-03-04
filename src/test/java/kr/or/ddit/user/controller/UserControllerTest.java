@@ -55,7 +55,7 @@ public class UserControllerTest extends WebTestConfig {
 		ModelAndView mav = mvcResult.getModelAndView();
 		
 		List<UserVo> userList=  (List<UserVo>) mav.getModel().get("userList");
-		Map<String, Object> map=  (Map<String, Object>) mav.getModel().get("resultMap");
+		//Map<String, Object> map=  (Map<String, Object>) mav.getModel().get("resultMap");
 		int pageSize = (int) mav.getModel().get("pageSize");
 		int page = (int) mav.getModel().get("page");
 		
@@ -63,5 +63,27 @@ public class UserControllerTest extends WebTestConfig {
 		assertEquals(1, page);
 		assertEquals(10, userList.size());
 	}
+	
+	@Test
+	public void testUser() throws Exception{
+		/***Given***/
+		MvcResult mvcResult = mockMvc.perform(get("/user/user").param("userId", "brown")).andReturn();
+		
+		/***When***/
+		ModelAndView mav = mvcResult.getModelAndView();
+		String viewName = mav.getViewName();
+		UserVo userVo = (UserVo) mav.getModel().get("userVo");
+		
+		
+		/***Then***/
+		assertEquals("user/user", viewName);
+		assertNotNull(userVo);
+		assertEquals("brown", userVo.getUserId());
+	}
+	
+/*	@Test
+	public void testProfileImg(){
+		
+	}*/
 
 }
