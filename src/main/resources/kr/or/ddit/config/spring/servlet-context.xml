@@ -9,7 +9,6 @@
 
 	<!-- @Controller 어노테이션을 처리 -->
 	<mvc:annotation-driven/>
-	
 <!--Spring에서 처리하지 못하는 요청은 was(Servlet-container)에게 위임  -->	
 	<mvc:default-servlet-handler/> 
 	
