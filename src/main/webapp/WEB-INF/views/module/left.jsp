@@ -7,7 +7,7 @@
           </ul>
           
           <ul class="nav nav-sidebar">
-            <li><a href="<%=request.getContextPath()%>/lprodList">제품 그룹리스트 </a></li>
+            <li><a href="<%=request.getContextPath()%>/lprod/lprodList">제품 그룹리스트 페이징 </a></li>
           </ul>
           
           
