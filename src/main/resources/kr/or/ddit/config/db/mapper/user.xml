@@ -72,8 +72,8 @@
               , #{zipcode}
               , #{pass}
               , sysdate
-              , #{filename}
-              , #{realFilename}
+              , #{filename, jdbcType=VARCHAR}
+              , #{realFilename, jdbcType=VARCHAR}
                 )
  	</insert>
 
@@ -95,7 +95,6 @@
       , addr2   =  #{addr2}
       , zipcode =  #{zipcode}
        <if test="filename != null">
- <!--  <if test="#{filename} != null"> -->
        , filename = #{filename} 
        , realFilename = #{realFilename}
       </if>

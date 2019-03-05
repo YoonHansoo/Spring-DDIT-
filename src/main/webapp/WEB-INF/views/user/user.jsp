@@ -104,13 +104,6 @@
 					</div>
 
 					<div class="form-group">
-						<label for="pass" class="col-sm-3 control-label">Password</label>
-						<div class="col-sm-9">
-							<label for="userNm" class="col-sm-2 control-label">${userVo.pass}</label>
-						</div>
-					</div>
-
-					<div class="form-group">
 						<label for="pass" class="col-sm-3 control-label">등록일자</label>
 						<div class="col-sm-9">
 							<label for="userNm" class="col-sm-2 control-label">
@@ -146,7 +139,7 @@ $(document).ready(function() {
 	/* //msg속성이 존재하면 alert 존재하지 않으면 넘어가기 */
 	<c:if test="${msg != null}">
 	alert("${msg}");
-	<%session.removeAttribute("msg");%> //세션객체 지워주기
+	<%-- <%session.removeAttribute("msg");%> //세션객체 지워주기 --%>
 	</c:if>
 });
 
