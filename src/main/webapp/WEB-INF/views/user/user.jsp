@@ -138,7 +138,7 @@ $(document).ready(function() {
 
 	/* //msg속성이 존재하면 alert 존재하지 않으면 넘어가기 */
 	<c:if test="${msg != null}">
-	alert("${msg}");
+		  alert("${msg}");
 	<%-- <%session.removeAttribute("msg");%> //세션객체 지워주기 --%>
 	</c:if>
 });

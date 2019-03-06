@@ -26,7 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
-import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256.SHA256_INFO;
 import kr.or.ddit.user.model.UserVo;
 import kr.or.ddit.user.service.IUserService;
 import kr.or.ddit.util.model.PageVo;
@@ -257,8 +256,8 @@ public class UserController {
 			//return "redirect:/user/user";
 			
 		//request.getSession().setAttribute("msg", "정상적으로 수정되었습니다.");
-		redirectAttributes.addAttribute("userId", userVo.getUserId());
 		//model.addAttribute("userId",userVo.getUserId()); 
+		redirectAttributes.addAttribute("userId", userVo.getUserId());
 		redirectAttributes.addFlashAttribute("msg", "정상적으로 수정되었습니다.");
 		return "redirect:"+request.getContextPath()+"/user/user";
 		}

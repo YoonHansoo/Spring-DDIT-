@@ -12,12 +12,18 @@ import org.slf4j.LoggerFactory;
 
 
 public class UserVo implements HttpSessionBindingListener {
+	//@NotBlank //white space 가능
+	
+	//white space 거절
+	//에러코드 : 어노테이션 명 --> 메세지 소스에 어노테이션명.필드 =에러메세지등록
+	
 	
 	private Logger logger = LoggerFactory.getLogger(UserVo.class);
-	
+	//@NotEmpty
 	private String userId;	 //사용자 아이디
 	private String userNm; //사용자 이름
 	private String alias; //별명
+	//@Size(min=8)
 	private String pass; //사용자 비밀번호
 	private String addr1; //주소
 	private String addr2;//상세주소

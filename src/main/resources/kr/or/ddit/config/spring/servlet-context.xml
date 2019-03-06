@@ -23,9 +23,10 @@
 
 <!--  @Cotroller만 스캔 -->
 	<context:annotation-config/>
-	<context:component-scan base-package="kr.or.ddit" annotation-config="true"> <!-- 전체에서 필요없는 부분을 제외(exclude)  -->
-	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+	<context:component-scan base-package="kr.or.ddit" annotation-config="false"> <!-- 전체에서 필요없는 부분을 제외(exclude)  -->
+	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	
 	<!-- <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Component"/> -->
 	</context:component-scan>
 
