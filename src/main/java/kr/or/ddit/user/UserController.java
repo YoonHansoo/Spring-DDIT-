@@ -76,6 +76,63 @@ public class UserController {
 		model.addAttribute("lastPage", lastPage);
 		return "userAllPagingListTiles";
 	}
+	
+	/**
+	 * Method : userPagingListAjax
+	 * 작성자 : Hansoo
+	 * 변경이력 :
+	 * @param page
+	 * @param pageSize
+	 * @param model
+	 * @return
+	 * Method 설명 :사용자 페이지 리스트 ajax 요청 처리
+	 */
+	@RequestMapping("/userPagingListAjax")
+	public String userPagingListAjax(@RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "pageSize", defaultValue = "10") int pageSize, Model model) {
+
+		PageVo pageVo = new PageVo(page, pageSize);
+		Map<String, Object> resultMap = userService.selectUserPagingList(pageVo);
+		int userCnt = (int) resultMap.get("userCnt");
+
+		int lastPage = userCnt / pageSize + (userCnt % pageSize > 0 ? 1 : 0);
+
+		model.addAllAttributes(resultMap); // Map 객체 안에 있는 속성들만 넘겨준다.
+		// model.addAttribute("resultMap", resultMap);
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("page", page);
+		model.addAttribute("lastPage", lastPage);
+		//userList, userCnt, pageSize, page
+		//{userList: [{userId : 'brown', userNm : '브라운' ... (userId: 'sally'm userNm:'셀리'}]}
+		// userCnt : "110";
+		// userSize : "10";
+		// page : "2";
+		return "jsonView";
+	}
+	
+	@RequestMapping("/userPagingListAjaxHtml")
+	public String userPagingListAjaxHtml(@RequestParam(name = "page", defaultValue = "1") int page,
+			@RequestParam(name = "pageSize", defaultValue = "10") int pageSize, Model model) {
+
+		PageVo pageVo = new PageVo(page, pageSize);
+		Map<String, Object> resultMap = userService.selectUserPagingList(pageVo);
+		int userCnt = (int) resultMap.get("userCnt");
+
+		int lastPage = userCnt / pageSize + (userCnt % pageSize > 0 ? 1 : 0);
+
+		model.addAllAttributes(resultMap); // Map 객체 안에 있는 속성들만 넘겨준다.
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("page", page);
+		model.addAttribute("lastPage", lastPage);
+		return "user/userPagingListAjaxHtml";
+	}
+	
+	@RequestMapping("/userPagingListAjaxView")
+	public String userPagingListAjaxView() {
+
+		return "userAllPagingListAjaxTiles";
+	}
+	
 
 	@RequestMapping(path = "/user", method = RequestMethod.GET)
 	public String user(@RequestParam("userId") String userId, Model model) {
@@ -117,7 +174,7 @@ public class UserController {
 		int len = 0;
 		while ((len = fis.read(buff)) > -1) {
 			sos.write(buff);
-			
+
 		}
 
 		sos.flush();
@@ -151,10 +208,10 @@ public class UserController {
 				profile.transferTo(new File(realFilename));
 				userVo.setFilename(filename);
 				userVo.setRealFilename(realFilename);
-				
-				//사용자 비밀번호 암호화 로직
+
+				// 사용자 비밀번호 암호화 로직
 				userVo.setPass(KISA_SHA256.encrypt(userVo.getPass()));
-				
+
 			}
 			int insertCnt = 0;
 			try {
@@ -194,9 +251,8 @@ public class UserController {
 	}
 
 	/**
-	 * Method : userModifyForm
-	 * 작성자 : Hansoo
-	 * 변경이력 :
+	 * Method : userModifyForm 작성자 : Hansoo 변경이력 :
+	 * 
 	 * @param profile
 	 * @param userVo
 	 * @param model
@@ -205,65 +261,62 @@ public class UserController {
 	 * @return
 	 * @throws IllegalStateException
 	 * @throws IOException
-	 * Method 설명 : 유저 업데이트 반영
+	 *             Method 설명 : 유저 업데이트 반영
 	 */
-	@RequestMapping(path="/userModifyForm", method=RequestMethod.POST)
-	public String userModifyForm(@RequestPart("profile")MultipartFile profile
-								   ,UserVo userVo, Model model
-								   ,HttpServletRequest request
-								   ,HttpServletResponse response
-								   ,RedirectAttributes redirectAttributes) throws IllegalStateException, IOException{
-		
-		if(profile.getSize()>0){
-			String filename=profile.getOriginalFilename();
-			String realFilename = "d:\\picture\\"+UUID.randomUUID().toString();
-			  userVo.setFilename(filename);
-			  userVo.setRealFilename(realFilename);
-			  
-			  profile.transferTo(new File(realFilename));
+	@RequestMapping(path = "/userModifyForm", method = RequestMethod.POST)
+	public String userModifyForm(@RequestPart("profile") MultipartFile profile, UserVo userVo, Model model,
+			HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes)
+			throws IllegalStateException, IOException {
+
+		if (profile.getSize() > 0) {
+			String filename = profile.getOriginalFilename();
+			String realFilename = "d:\\picture\\" + UUID.randomUUID().toString();
+			userVo.setFilename(filename);
+			userVo.setRealFilename(realFilename);
+
+			profile.transferTo(new File(realFilename));
 		}
-		
-		//비밀번호 수정요청
-		//사용자가 값을 입력하지 않은 경우 -> 기존 비밀번호를 유지
-		if(userVo.getPass().equals("")){
+
+		// 비밀번호 수정요청
+		// 사용자가 값을 입력하지 않은 경우 -> 기존 비밀번호를 유지
+		if (userVo.getPass().equals("")) {
 			UserVo userVoForPass = userService.selectUser(userVo.getUserId());
 			userVo.setPass(userVoForPass.getPass());
 		}
-		
-		//사용자가 비밀번호를 신규 등록한 경우
-		else{
+
+		// 사용자가 비밀번호를 신규 등록한 경우
+		else {
 			userVo.setPass(KISA_SHA256.encrypt(userVo.getPass()));
 		}
-		
+
 		int updateCnt = 0;
-		try{
+		try {
 			updateCnt = userService.updateUser(userVo);
-			}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		//정상입력
-		if(updateCnt==1){
-			//redirect 파라미터를 보내는 방법
-			//1.url로 작성
-			//return "redirect:/user/user?userId="+userVo.getUserId();
-			//2.model 객체의 속성 : 저장된 속성을 자동으로 파라미터 변환
-			//model.addAttribute("userId",userVo.getUserId());
-			//return "redirect:/user/user";
-			//3.RedirectAttributes(ra) 객체를 이용
-			//ra.addAttribute("userId",userVo.getUserId());
-			//return "redirect:/user/user";
-			
-		//request.getSession().setAttribute("msg", "정상적으로 수정되었습니다.");
-		//model.addAttribute("userId",userVo.getUserId()); 
-		redirectAttributes.addAttribute("userId", userVo.getUserId());
-		redirectAttributes.addFlashAttribute("msg", "정상적으로 수정되었습니다.");
-		return "redirect:"+request.getContextPath()+"/user/user";
+
+		// 정상입력
+		if (updateCnt == 1) {
+			// redirect 파라미터를 보내는 방법
+			// 1.url로 작성
+			// return "redirect:/user/user?userId="+userVo.getUserId();
+			// 2.model 객체의 속성 : 저장된 속성을 자동으로 파라미터 변환
+			// model.addAttribute("userId",userVo.getUserId());
+			// return "redirect:/user/user";
+			// 3.RedirectAttributes(ra) 객체를 이용
+			// ra.addAttribute("userId",userVo.getUserId());
+			// return "redirect:/user/user";
+
+			// request.getSession().setAttribute("msg", "정상적으로 수정되었습니다.");
+			// model.addAttribute("userId",userVo.getUserId());
+			redirectAttributes.addAttribute("userId", userVo.getUserId());
+			redirectAttributes.addFlashAttribute("msg", "정상적으로 수정되었습니다.");
+			return "redirect:" + request.getContextPath() + "/user/user";
 		}
-		
-		//입력실패
-		else{
+
+		// 입력실패
+		else {
 			UserVo userVo_dupl = userService.selectUser(userVo.getUserId());
 			model.addAttribute("userVo", userVo_dupl);
 			model.addAttribute("msg", "수정에 실패하였습니다.");
