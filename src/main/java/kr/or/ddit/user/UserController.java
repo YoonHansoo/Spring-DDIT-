@@ -117,7 +117,7 @@ public class UserController {
 		int len = 0;
 		while ((len = fis.read(buff)) > -1) {
 			sos.write(buff);
-
+			
 		}
 
 		sos.flush();

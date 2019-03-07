@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class CommonExceptionHandler {
 private Logger logger = LoggerFactory.getLogger(CommonExceptionHandler.class);
+
 	@ExceptionHandler(ArithmeticException.class)
 	public String handleException(){
 		logger.debug("arithmeticException1");

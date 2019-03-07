@@ -6,7 +6,10 @@ import java.util.Date;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,11 +22,11 @@ public class UserVo implements HttpSessionBindingListener {
 	
 	
 	private Logger logger = LoggerFactory.getLogger(UserVo.class);
-	//@NotEmpty
+	@NotEmpty
 	private String userId;	 //사용자 아이디
 	private String userNm; //사용자 이름
 	private String alias; //별명
-	//@Size(min=8)
+	@Size(min=8, max=12)
 	private String pass; //사용자 비밀번호
 	private String addr1; //주소
 	private String addr2;//상세주소

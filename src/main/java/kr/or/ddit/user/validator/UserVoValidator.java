@@ -18,6 +18,7 @@ public class UserVoValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		UserVo userVo = (UserVo)target;
 		
+		
 		//비밀번호가 8자리 이상이어야 한다.
 		if(userVo.getPass().length()<8){
 			errors.rejectValue("pass","passlen");//에러코드 설정

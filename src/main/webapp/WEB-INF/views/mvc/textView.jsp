@@ -14,6 +14,7 @@
 	<input type="password" name = "pass" value="1234"/>  <form:errors path="userVo.pass"/>  <br/>
 	<input type="submit" value="전송"/>
 </form>
+${userVo}
 
 <h2>textReqJ303</h2>
 <form action="${cp}/textReqJsr303">
