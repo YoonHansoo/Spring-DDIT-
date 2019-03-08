@@ -44,11 +44,18 @@ td{
 	}
 	
 	function requestBody(){
-		var data = {userId:"brown",userNm:"브라운"};
+	var data = {userId:"brown",userNm:"브라운"};
+		
+		
 		
 		$.ajax({
 			url : "${cp}/ajax/requestBody",
 			method :"post",
+			//제이슨에서 데이터를 보내는 3가지 방법
+			
+			//1번 .data : "userId=brown&userNm=브라운";
+			//2번 data=$("#frm").serialize(); 보내야 할 값이 많을 때
+			//3번 JSON.stringify(data); //자바스크립트 객체를 문자열로 변환함
 			//data : $("#frm").serialize(),//"userId=brown&userNm=브라운"대신 form태그에 보내야 할 값이 많을 때 쓰는 함수
 			data : JSON.stringify(data) , //js객체를 문자열로 만들어준다.
 			dataType :"json", //server에게 희망하는 응답의 리턴타입

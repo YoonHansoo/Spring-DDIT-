@@ -174,6 +174,14 @@
 			//getUserPageList(1);
 			getUserPageListHtml(1);
 			
+			
+			
+			
+			
+			
+			
+			
+			
 		/* 	//msg속성이 존재하면 alert 존재하지 않으면 넘어가기 */
 			<c:if test="${msg != null}">
 			alert("${msg}");
@@ -189,8 +197,23 @@
 				});
 			 */
 
+			 /*-------------------------------------  */
+			//ajax를 통한 html 생성 시 이벤트 핸들러 등록 방법
+		      //1. html이 ajax 호출에 의해 정상적으로 생성된 이후
+		      //   클릭이벤트 핸들러를 등록
+		      //   (success -> 사용자 html이 생성된 이후에 등록)
+		     //2. 이벤트 핸들러 대상을 변경(.userTr -> #userListTbody)
+		     //   동적으로 생성된 html을 감싸는 영역에 이벤트를 등록
+		     //   단 on 옵셥에서 감싸는 영역 안에 처리되어야 할 selector를 명시
+		     //   $(".userTr").on("click", function(){
+		     //   ->
+		      //   $("#userListTbody").on("click", ".userTr", function(){
+		      /*-------------------------------------  */
+		      // 사용자 tr 태그 클릭시 이벤트 핸들러
+		      $("#userListTbody").on("click", ".userTr", function(){
+			 
 			//방법2 택1
-			$(".userTr").click(function() {
+		//	$(".userTr").click(function() {
 				console.log("userTr click");
 
 				//클릭한 userTr태그의 userId값을 출력

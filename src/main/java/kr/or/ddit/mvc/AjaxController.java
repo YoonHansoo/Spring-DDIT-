@@ -49,7 +49,7 @@ public class AjaxController {
 	
 	@RequestMapping("/modelAndView")
 	public ModelAndView modelAndView(){
-		return new ModelAndView("jsoinView");
+		return new ModelAndView("jsonView");
 	}
 
 	@RequestMapping(path="/responseBody", produces={"application/json"}) //json으로 보낸다.
