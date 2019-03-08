@@ -12,8 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import kr.or.ddit.test.LogicTestConfig;
-import kr.or.ddit.user.dao.IUserDao;
-import kr.or.ddit.user.dao.UserDaoImpl;
 import kr.or.ddit.user.model.UserVo;
 import kr.or.ddit.util.model.PageVo;
 
@@ -22,9 +20,9 @@ public class UserServiceImplTest extends LogicTestConfig {
 	@Resource(name="userService")
 	private IUserService userService;
 	
-	@Before
+	//@Before
 	public void setUp() {
-		userService.deleteUser("test2");
+		userService.deleteUser("test1");
 	}
   //getAllUser 메소드를 테스트하는 메소드 작성
    @Test
@@ -36,7 +34,7 @@ public class UserServiceImplTest extends LogicTestConfig {
          
       
       assertNotNull(userService.getAllUser());
-      //assertEquals(105, userList.size());
+      //assertEquals(105, userList.size());                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
       }
 
    }
@@ -72,7 +70,7 @@ public class UserServiceImplTest extends LogicTestConfig {
    public void testInsertUser() {
 	   /***Given***/
 		UserVo vo = new UserVo();
-		vo.setUserId("test2");
+		vo.setUserId("test1");
 		vo.setUserNm("테스트2");
 		vo.setAlias("별명2");
 		vo.setAddr1("대전 중구 대흥로 76");
@@ -110,7 +108,7 @@ public class UserServiceImplTest extends LogicTestConfig {
 			assertEquals(1, userCnt);
 	}
    
-   //@Test
+   //@Test 사용자 비밀번호를 암호화 하는 테스트 코드이기 때문에 실행 시에 조심해야 한다.
    public void EncryptPass_Test() {
 	   /***Given***/
 	

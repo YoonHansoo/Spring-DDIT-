@@ -7,13 +7,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import kr.or.ddit.db.mybatis.MybatisSqlSessionFactory;
 import kr.or.ddit.test.LogicTestConfig;
 import kr.or.ddit.user.model.UserVo;
 import kr.or.ddit.util.model.PageVo;
@@ -23,20 +20,15 @@ public class UserDaoImplTest extends LogicTestConfig {
 	@Resource(name="userDao")
 	private IUserDao userDao;
 	
-	private SqlSession sqlSession;
 	
 	@Before
 	public void setup() {
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		sqlSession = sqlSessionFactory.openSession();
-		
-		userDao.deleteUser(sqlSession, "test");
+		userDao.deleteUser("test");
 	}
 	
 	
 	@After
 	public void tearDown() {
-		sqlSession.close();
 		
 	}
 	
@@ -46,7 +38,7 @@ public class UserDaoImplTest extends LogicTestConfig {
 		
 		/*** When ***/
 		
-		List<UserVo> list = userDao.gertAllUser(sqlSession);
+		List<UserVo> list = userDao.gertAllUser();
 		
 		for(UserVo userVo : list)
 			System.out.println(userVo);
@@ -65,7 +57,7 @@ public class UserDaoImplTest extends LogicTestConfig {
 		
 		/***When***/
 		
-		UserVo user  = userDao.selectUser(sqlSession, "cony");
+		UserVo user  = userDao.selectUser("cony");
 		
 		System.out.println(user.getUserId());
 
@@ -86,7 +78,7 @@ public class UserDaoImplTest extends LogicTestConfig {
 		PageVo pageVo = new PageVo(1,10);
 
 		/***When***/
-		List<UserVo> userList = userDao.selectUserPagingList(sqlSession, pageVo);
+		List<UserVo> userList = userDao.selectUserPagingList(pageVo);
 		
 		/***Then***/
 		//assertNotNull(userList);
@@ -105,7 +97,7 @@ public class UserDaoImplTest extends LogicTestConfig {
 		
 
 		/***When***/
-		int userCnt = userDao.getUserCnt(sqlSession);
+		int userCnt = userDao.getUserCnt();
 		
 		/***Then***/
 		assertEquals(105, userCnt);
@@ -167,7 +159,7 @@ public class UserDaoImplTest extends LogicTestConfig {
 	public void testinsertUser() {
 		/***Given***/
 		UserVo vo = new UserVo();
-		vo.setUserId("tes1232rvf");
+		vo.setUserId("tes123");
 		vo.setUserNm("테스트");
 		vo.setAlias("별명");
 		vo.setAddr1("대전 중구 대흥로 76");
@@ -180,7 +172,7 @@ public class UserDaoImplTest extends LogicTestConfig {
 		
 
 		/***When***/
-		 int userCnt= userDao.insertUser(sqlSession, vo);
+		 int userCnt= userDao.insertUser(vo);
 		
 		/***Then***/
 		assertEquals(1, userCnt);
@@ -200,7 +192,7 @@ public class UserDaoImplTest extends LogicTestConfig {
 		vo.setPass("testpass");
 
 		/***When***/
-		 int userCnt= userDao.updateUser(sqlSession, vo);
+		 int userCnt= userDao.updateUser(vo);
 		
 		/***Then***/
 			assertEquals(1, userCnt);
