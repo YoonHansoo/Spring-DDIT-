@@ -36,6 +36,7 @@ public class LoginController {
 	
 		UserVo dbUservo = userService.selectUser(userVo.getUserId());
 		
+
 		//정상 로그인 한 여부
 		if(dbUservo.getUserId().equals(userVo.getUserId()) && dbUservo.getPass().equals(KISA_SHA256.encrypt(userVo.getPass()))){
 			

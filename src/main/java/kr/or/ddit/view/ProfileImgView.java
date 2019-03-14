@@ -15,6 +15,7 @@ import org.springframework.web.servlet.View;
 import kr.or.ddit.user.model.UserVo;
 import kr.or.ddit.user.service.IUserService;
 
+
 public class ProfileImgView implements View {
 	@Resource(name="userService")
 	private IUserService userService;

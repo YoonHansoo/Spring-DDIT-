@@ -11,10 +11,11 @@
 
 	<aop:config>
 
+
 		<aop:pointcut expression="execution(* kr.or.ddit..service.*.*(..))"
 			id="target" />
 
-		<aop:aspect ref="LoggingAdvice">
+		<aop:aspect ref="LoggingAdvice">  <!--어떤 pointCut에 어떤 advice가 적용될지 결정  -->
 			<aop:before method="beforeMethod" pointcut-ref="target" />
 			<aop:after method="afterMethod" pointcut-ref="target"/>
 			<aop:around method="aroundMethod" pointcut-ref="target"/>

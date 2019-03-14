@@ -213,4 +213,9 @@ public class UserControllerTest extends WebTestConfig {
 		
 	/***Then***/
 	}
-}
+	
+	@Test
+	public void aa123(){
+		
+	}
+	}
