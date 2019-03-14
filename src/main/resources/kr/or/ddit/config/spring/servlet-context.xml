@@ -1,77 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<!-- @Controller 어노테이션을 처리 -->
-	<mvc:annotation-driven/>
-<!--Spring에서 처리하지 못하는 요청은 was(Servlet-container)에게 위임  -->	
-	<mvc:default-servlet-handler/> 
-	
-	
-	<!-- view Resolver 설정  -->
-	<!-- html 응답을 생성하는 jsp를 처리해주는 viewResolver와 별개로 
-		 json 응답을 생성하는 viewResolver를 등록  
-		 
-		 viewResolverd의 order : 우선순위(낮을수록 우선순위가 높다 ->먼저 적용) -->
+	<mvc:annotation-driven />
+	<!--Spring에서 처리하지 못하는 요청은 was(Servlet-container)에게 위임 -->
+	<mvc:default-servlet-handler />
+
+
+	<!-- view Resolver 설정 -->
+	<!-- html 응답을 생성하는 jsp를 처리해주는 viewResolver와 별개로 json 응답을 생성하는 viewResolver를 
+		등록 viewResolverd의 order : 우선순위(낮을수록 우선순위가 높다 ->먼저 적용) -->
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-		<property name="order" value="0"/>
+		<property name="order" value="0" />
 	</bean>
-	
-	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean>
-	
+
+	<bean id="jsonView"
+		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean>
+
 	<bean id="profileImgView" class="kr.or.ddit.view.ProfileImgView"></bean>
-	
-	
-	
-	 <bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
-		<property name="order" value="1"/>
-		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+
+
+
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<property name="order" value="1" />
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
 	</bean>
-	
-	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
 			<list>
 				<value>classpath:kr/or/ddit/config/tiles/tiles.xml</value>
 			</list>
 		</property>
 	</bean>
-	
-	
-	<!-- jsp를 처리해줄 view resolver -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="order" value="1"/>
-		<property name="prefix" value="/WEB-INF/views/"/>
-		<property name="suffix" value=".jsp"/>
-	</bean>
-	
-	
-	
 
-<!--  @Cotroller만 스캔 -->
-	<context:annotation-config/>
-<!-- 	<context:component-scan base-package="kr.or.ddit" annotation-config="false"> 전체에서 필요없는 부분을 제외(exclude)  -->
-	<context:component-scan base-package="kr.or.ddit" use-default-filters="false"> <!-- 전체에서 필요없는 부분을 제외(exclude)  -->
-	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-	<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
-	
-	<!-- <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Component"/> -->
+
+	<!-- jsp를 처리해줄 view resolver -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="2" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+
+
+
+	<!-- @Cotroller만 스캔 -->
+	<context:annotation-config />
+	<!-- <context:component-scan base-package="kr.or.ddit" annotation-config="false"> 
+		전체에서 필요없는 부분을 제외(exclude) -->
+	<context:component-scan base-package="kr.or.ddit"
+		use-default-filters="false"> <!-- 전체에서 필요없는 부분을 제외(exclude) -->
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+
+		<!-- <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Component"/> -->
 	</context:component-scan>
 
-	
-		<!--
-	Spring 파일 업로드를 위한 설정 
-		1.multipartResolver 등록(id, name은 multipartResolver로 정의되어있음)
-		2.commons-fileupload 디펜던시 추가(pom.xml) 
-		-->
-		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-			<property name="maxUploadSize"        value="2621440" />
-			<property name="maxUploadSizePerFile" value="5242880"/>
-			
-		</bean>
+
+	<!-- Spring 파일 업로드를 위한 설정 1.multipartResolver 등록(id, name은 multipartResolver로 
+		정의되어있음) 2.commons-fileupload 디펜던시 추가(pom.xml) -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="2621440" />
+		<property name="maxUploadSizePerFile" value="5242880" />
+
+	</bean>
+
+	<!--bean 이름 localeResolver로 정해져 있다. -->
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+
+	<!--localeChangerInterceptor -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+				<property name="paramName" value="language"></property>
+			</bean>
+		</mvc:interceptor>
+
+
+	</mvc:interceptors>
+
 
 </beans>
